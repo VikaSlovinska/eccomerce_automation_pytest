@@ -1,3 +1,4 @@
+import logging as logger
 
 from demostore_automation.src.selenium_extended.SeleniumExtended import SeleniumExtended
 from demostore_automation.src.configs.MainConfigs import MainConfigs
@@ -6,10 +7,12 @@ from demostore_automation.src.pages.locators.HomePageLocators import HomePageLoc
 class HomePage(HomePageLocators):
 
     def __init__(self, driver):
+        logger.debug("Creating page object 'HomePage'.")
         self.driver = driver
         self.sl = SeleniumExtended(driver)
 
     def go_to_home_page(self):
+        logger.info("Going to home page")
         base_url = MainConfigs.get_base_url()
         self.driver.get(base_url)
 

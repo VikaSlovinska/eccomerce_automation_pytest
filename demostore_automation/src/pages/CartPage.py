@@ -39,3 +39,6 @@ class CartPage(CartPageLocators):
 
     def click_on_proceed_to_checkout(self):
         self.sl.wait_and_click(self.PROCEED_TO_CHECKOUT_BTN)
+
+    def get_displayed_error(self):
+        return self.sl.wait_and_get_text(self.ERROR_BOX)
