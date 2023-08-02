@@ -23,7 +23,8 @@ class SeleniumExtended:
         timeout = timeout if timeout else self.default_timeout
         try:
             WebDriverWait(self.driver, timeout).until(
-                EC.element_to_be_clickable(locator)
+                EC.element_to_be_clickable(locator),
+                message=f'Unable to click element located by: {locator}'
             ).click()
         except StaleElementReferenceException:
             time.sleep(2)

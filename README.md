@@ -122,7 +122,11 @@ export DB_PASSWORD=root
 ```commandline
 export PYTHONPATH=/<path>/<to>/demostore-pytest-base
 cd demostore_automation
-python3 -m pytest tests
+python3 -m pytest tests --html=./report.html
+```
+or run it with report generation
+```commandline
+python3 -m pytest tests --html=./report.html
 ```
 Try the runner.sh script.
 ```commandline
