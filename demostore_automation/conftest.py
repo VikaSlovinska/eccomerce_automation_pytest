@@ -10,14 +10,14 @@ from selenium.webdriver.firefox.options import Options as FFOptions
 @pytest.fixture(scope="class")
 def init_driver(request):
 
-    supported_browsers = ['chrome', 
+    supported_browsers = ('chrome',
                           'ch', 
                           'headlesschrome', 
                           'remote_chrome', 
                           'firefox', 
                           'ff', 
                           'headlessfirefox', 
-                          'remote_firefox']
+                          'remote_firefox')
 
     browser = os.environ.get('BROWSER', None)
     if not browser:
@@ -39,7 +39,7 @@ def init_driver(request):
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--no-sandbox')
-        # chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-dev-shm-usage')
         driver = webdriver.Chrome(options=chrome_options)
 
@@ -58,12 +58,13 @@ def init_driver(request):
         )
 
     elif browser == 'remote_firefox':
+        firefox_remote_url = os.environ.get("REMOTE_WEBDRIVER")
         capabilities = {
             'browserName': 'firefox',
             'marionette': True,
             'acceptInsecureCerts': True
         }
-        driver = webdriver.Remote(command_executor=remote_url, desired_capabilities=capabilities)
+        driver = webdriver.Remote(command_executor=firefox_remote_url, desired_capabilities=capabilities)
     elif browser == 'headlessfirefox':
         ff_options = FFOptions()
         ff_options.add_argument("--disable-gpu")
@@ -71,12 +72,13 @@ def init_driver(request):
         ff_options.add_argument("--headless")
         driver = webdriver.Firefox(options=ff_options)
 
-    logger.debug("############### BROWSER INFORMATION #####################")
+    logger.info("############### BROWSER INFORMATION #####################")
     for k, v in driver.capabilities.items():
         logger.debug(f"{k}: {v}")
     logger.debug("#########################################################")
 
     request.cls.driver = driver
+
 
     yield
 
