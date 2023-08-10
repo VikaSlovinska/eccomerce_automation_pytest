@@ -1,1 +1,7 @@
 __pycache__/
+<<<<<<< Updated upstream
+=======
+
+*.DS_Store
+.idea/
+>>>>>>> Stashed changes
