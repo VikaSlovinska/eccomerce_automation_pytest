@@ -5,3 +5,8 @@ __pycache__/
 *.DS_Store
 .idea/
 >>>>>>> Stashed changes
+local_variables/
+credentials_dev_store
+variables_dev_store
+
+VN/
