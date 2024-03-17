@@ -1,5 +1,5 @@
 selenium==4.10.0
-pytest==7.4.0
+pytest
 pymysql==1.0.3
 woocommerce==3.0.0
-pytest-html==3.2.0
+pytest-html
