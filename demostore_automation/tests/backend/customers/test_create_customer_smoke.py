@@ -2,6 +2,7 @@
 import logging as logger
 import pytest
 from demostore_automation.src.utilities.genericUtilities import generate_random_email_and_password
+from demostore_automation.src.api_helpers.CustomerAPIHelper import CustomersAPIHelper
 from demostore_automation.src.utilities.wooAPIUtility import WooAPIUtility
 from demostore_automation.src.dao.customers_dao import CustomersDAO
 
@@ -100,5 +101,24 @@ def test_create_customer_fail_when_no_password_is_provided():
     assert rs_api['data']['status'] == 400
 
 
+@pytest.mark.customers
+@pytest.mark.tcid32
+def test_create_customer_names_empty_if_not_provided():
+    logger.info("TEST: Ensure customer creation with only email and password results in empty names.")
+    rand_info = generate_random_email_and_password()
+    email = rand_info['email']
+    password = rand_info['password']
 
-    # make create customer api call without including password in the payload
+    # make the call
+    cust_obj = CustomersAPIHelper()
+    cust_api_info = cust_obj.call_create_customer(email=email, password=password)
+
+    assert cust_api_info['first_name'] == '', f"Creating user without providing name expected to create first_name=''" \
+                                              f"but it was first_name={cust_api_info['first_name']}"
+    assert cust_api_info['last_name'] == '', f"Creating user without providing name expected to create last_name='' " \
+                                             f"but it was first_name={cust_api_info['last_name']}"
+
+
+
+
+
