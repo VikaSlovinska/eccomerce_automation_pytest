@@ -1,9 +1,11 @@
 from demostore_automation.src.utilities.wooAPIUtility import WooAPIUtility
 from demostore_automation.src.utilities.genericUtilities import generate_random_email_and_password
+
+
 class CustomersAPIHelper:
+
     def __init__(self):
         self.woo_api_utility = WooAPIUtility()
-
 
     def call_create_customer(self, email=None, password=None, expected_status_code=201, **kwargs):
         # if email is not provided create one
@@ -19,14 +21,11 @@ class CustomersAPIHelper:
         payload['email'] = email
         payload['password'] = password
         payload.update(kwargs)
-        create_user_jsn = self.woo_api_utility.post('customers', params=payload, expected_status_code=expected_status_code)
-        return create_user_jsn
 
+        return self.woo_api_utility.post('customers', params=payload, expected_status_code=expected_status_code)
 
-
-
-
-
+    def call_delete_customer(self, customer_id):
+        return self.woo_api_utility.delete(f'customers/{customer_id}', params={'force': True})
 
 
 
